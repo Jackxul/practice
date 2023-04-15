@@ -1,30 +1,28 @@
-# -*- Makefile  -*-
-CC:=g++
-CC2:=gcc
-CFLAGS = -c -Wall
-SRC=${wildcard *.cpp}
-SRC2=${wildcard *.c}
-OBJ = $(patsubst %.cpp,%.o,$(SRC))
-OBJ2 = $(patsubst %.c,%.o,$(SRC))
-EXE = $(patsubst %.o,%,$(OBJ))
-EXE2 = $(patsubst %.o,%,$(OBJ2))
+# -*- Sub Makefile -*-
+# Time-stamp: <2016-03-31 16:32:00 kmodi>
 
-#$@ 工作目標名稱
-#$< 第一個必條件的檔名
-#$^ 所有必要條件的檔名
-#$* 工作目標的主檔名
+CC:=gcc
+CFLAGS:=-Wall -c
 
+build:=$(shell mkdir -p build)
+build:=$(shell mkdir -p include)
+B_DIR := build
+I_DIR := include
+SRC=${wildcard *.c}
+OBJ = $(patsubst %.c,$(B_DIR)/%.o,$(SRC))
 
+exe:=start
 
-$(EXE): $(OBJ)
-	@${CC} $(OBJ) -o $@
-$(EXE2): $(OBJ2)
-	@${CC2} $(OBJ2) -lncurses -o $@
-%.o: %.c
-	@$(CC2) $(CFLAGS) -c $< -o $@
-%.o: %.cpp
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compile $< to $@"
+$(exe): $(OBJ)
+	$(CC) $(OBJ) -lncurses -o $@
+	@echo "Makefile: Done."
+$(B_DIR)/%.o: %.c
+	@$(CC) $(CFLAGS) -I $(I_DIR) -c $< -o $@
+	@echo  "Building objective file $@ from $< ..."
 .PHONY: clean
 clean:
-	rm -rf *.o
+	@echo "Makefile_sub : Cleaning up..."
+	rm -rf build
+	rm ./start
+	@echo "Makefile: Done."
+	@tree .
