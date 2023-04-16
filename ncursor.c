@@ -54,7 +54,7 @@ int main() {
 		"G18-Nanjing Sanmin",
 		"G19-Songshan"
 	};
-	int select_item = 0;
+	int select_item = 0 , sub_select_item = 0;
 	bool flag = true;	
 	
 
@@ -81,10 +81,16 @@ int main() {
 				if (select_item > 0){
 					select_item--;
 				}
+				else if(select_item == 0){
+					select_item = items_num - 1;
+				}
 				break;
 			case KEY_DOWN:
 				if(select_item < items_num - 1){
 					select_item++;
+				}
+				else if(select_item == items_num - 1){
+					select_item = 0;
 				}
 				break;
 			case '\n': //Enter
@@ -97,51 +103,54 @@ int main() {
 	}
 	//for sub item selection list
 	flag = true;
+	
+	
+	int sub_nums = 0;
+
+	sub_nums = sizeof(BR) / sizeof(BR[0]);
 	//initscr();//initialize the screen      <===> endwin();
 	//cbreak();//turn off line buffering     <===> nocbreak();
 	//noecho();//turn off echoing of typed keys <===> echo();
 	//keypad(stdscr, TRUE);//turn on keypad mode ==> up down left right  <===> keypad(stdscr, FALSE);
-	
-	int sub_nums = 0;
-
-		switch(select_item){
-			case 0:
-				sub_nums = sizeof(BR) / sizeof(BR[0]);
-				printw("Your now in the list of %s line\n", st_info[select_item]);
-				refresh();
-				break;
-			case 1:
-				printw("BL Line\n");
-				refresh();
-				break;
-			case 2:
-				sub_nums = sizeof(G) / sizeof(G[0]);//init the sub item nums
-				//print the sub item list
-				printw("Your now in the list of %s line\n", st_info[select_item]);
-				for (int i = 0; i < sub_nums; i++){
-					printw("%s\n", G[i]);
-				}
-				refresh();
-				break;
-			case 3:
-				printw("R Line\n");
-				refresh();
-				break;
-			case 4:
-				printw("Y Line\n");
-				refresh();
-				break;
-			default:
-				break;
-
+	while(flag){	
+		clear();	
+		printw("Your now in the list of %s line\n", st_info[select_item]);
+		for(int i = 0;i < sub_nums;i++){
+			if(i == sub_select_item)
+				printw("--> %s\n", BR[i]);
+			else
+				printw("    %s\n", BR[i]);
 		}
-
+		int c = getch();	
+		switch(c){
+			case KEY_UP:
+				if (sub_select_item > 0){
+					sub_select_item--;
+				}
+				else if(sub_select_item == 0){
+					sub_select_item = sub_nums - 1;
+				}
+				break;
+			case KEY_DOWN:
+				if(sub_select_item < sub_nums - 1){
+					sub_select_item++;
+				}
+				else if(sub_select_item == sub_nums - 1){
+					sub_select_item = 0;
+				}
+				break;
+			case '\n': //Enter
+				mvprintw(sub_nums + 2 , 0,"Station Info : %s\n", BR[sub_select_item]);
+				refresh();//For the screen to update ==> used in curses mode
+				flag = false;
+				break;
+		}
+	}
 	sleep(1);
-
+	
 	endwin();//end curses mode == (nocbreak() + echo() + keypad(stdscr, FALSE))
-	printf("Size = %d\n", sizeof(st_info) / sizeof(st_info[0]));
-
-
+	
+	printf("The station you select is %s line -> %s\n", st_info[select_item], BR[sub_select_item]);
 	return 0;
 }
 
