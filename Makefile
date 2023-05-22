@@ -6,14 +6,17 @@ CFLAGS:=-Wall -c
 
 build:=$(shell mkdir -p build)
 build:=$(shell mkdir -p include)
+build:=$(shell mkdir -p exe)
 B_DIR := build
 I_DIR := include
+E_DIR := exe
 SRC=${wildcard *.c}
 OBJ = $(patsubst %.c,$(B_DIR)/%.o,$(SRC))
+EXE = $(patsubst $(B_DIR)/%.o,$(E_DIR)/%,$(OBJ))
 
 exe:=start
 
-$(exe): $(OBJ)
+$(EXE): $(OBJ)
 	$(CC) $(OBJ) -lncurses -o $@
 	@echo "Makefile: Done."
 $(B_DIR)/%.o: %.c
@@ -23,6 +26,6 @@ $(B_DIR)/%.o: %.c
 clean:
 	@echo "Makefile_sub : Cleaning up..."
 	rm -rf build
-	rm ./start
+	rm -rf exe
 	@echo "Makefile: Done."
 	@tree .
