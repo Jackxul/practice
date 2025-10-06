@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
-int ncursor() {
+int main() {
 	char *st_info[] = {"BR" , "BL" , "G" , "R" , "Y"};
 	int items_num = sizeof(st_info) / sizeof(st_info[0]);
 	const char *BR[] = {
