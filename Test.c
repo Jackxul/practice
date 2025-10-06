@@ -1,25 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define A 0x1<<4
 
-#define F(x,y) x*y
-int F2(int x, int y){
-	return x*y;
+int main(int argc, char *argv[]){
+	
+	int i = 100;
+	int *p = &i;
+	int **pp = &p;
+	printf("i = %d\n", i);
+	printf("&i = %p\n", &i);
+	printf("p = %p\n", p);
+	printf("&p = %p\n", &p);
+	printf("*p = %d\n", *p);
+	printf("pp = %p\n", pp);
+	printf("&pp = %p\n", &pp);
+	printf("*pp = %p\n", *pp);
+	printf("**pp = %d\n", **pp);
+	return 0;
 }
-int main(){
-	
 
-	
-
-	int a = F(1+3,3+1);
-	int a2 = F2(1+3,3+1);
-	int a3 = F((1+3),(3+1));
-	int a4 = F2((1+3),(3+1));
-
-	printf("F() = %d\n",a);
-	printf("F2() = %d\n",a2);
-	printf("F3() = %d\n",a3);
-	printf("F4() = %d\n",a4);
-	
-	printf("%d\n",(0|1));
-
-}
