@@ -14,11 +14,34 @@
 
 #define NUM 500
 
-int *quick_sort(int *arr, int len){
-	int *pivot = arr + (len-1);
-	
-	
-	return arr;
+void swap(int *a, int *b){
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+int partition(int *arr, int head, int tail){
+	int i = head - 1;
+	int j = tail + 1;
+	int pivot = head;
+	while(1){
+		do{
+			i++;
+		}while(*(arr + i) < *(arr + pivot));
+		do{
+			j--;
+		}while(*(arr + j) > *(arr + pivot));
+		if(i >= j){
+			return j;
+		}
+		swap(arr + i, arr + j);
+	}
+}
+void quick_sort(int *arr, int head, int tail){
+	if(head < tail){
+		int p = partition(arr, head, tail);
+		quick_sort(arr, head, p);
+		quick_sort(arr, p + 1, tail);
+	}
 }
 int *insertion_sort(int *arr, int len){
 	for(int out = 0; out < len; out++){
@@ -97,7 +120,7 @@ int main(void){
 	int size2 = sizeof(arr2) / sizeof(arr2[0]);
 	int arr3[] = {31, 77, 14, 95, 62, 5, 43, 27, 89, 11, 58, 36, 81, 24, 68, 99, 7, 53, 40, 20};
 	int size3 = sizeof(arr3) / sizeof(arr3[0]);
-	int arr4[20];
+	int arr4[500];
 	int size4 = sizeof(arr4) / sizeof(arr4[0]);
 	create_array(arr4, size4);
 	
@@ -105,7 +128,8 @@ int main(void){
 	printf("After sorting:\n");
 	//bubble_sort(arr1, size1);
 	//selection_sort(arr1, size1);
-	insertion_sort(arr1, size1);
+	//insertion_sort(arr1, size1);
+	quick_sort(arr1, 0, size1 - 1);
 	print_array(arr1, size1);
 	printf("\n");
 
@@ -113,7 +137,8 @@ int main(void){
 	printf("After sorting:\n");
 	//bubble_sort(arr2, size2);
 	//selection_sort(arr2, size2);
-	insertion_sort(arr2, size2);
+	//insertion_sort(arr2, size2);
+	quick_sort(arr2, 0, size2 - 1);
 	print_array(arr2, size2);
 	printf("\n");
 
@@ -121,7 +146,8 @@ int main(void){
 	printf("After sorting:\n");
 	//bubble_sort(arr3, size3);
 	//selection_sort(arr3, size3);
-	insertion_sort(arr3, size3);
+	//insertion_sort(arr3, size3);
+	quick_sort(arr3, 0, size3 - 1);
 	print_array(arr3, size3);
 	printf("\n");
 
@@ -129,7 +155,8 @@ int main(void){
 	printf("After sorting:\n");
 	//bubble_sort(arr4, size4);
 	//selection_sort(arr4, size4);
-	insertion_sort(arr4, size4);
+	//insertion_sort(arr4, size4);
+	quick_sort(arr4, 0, size4 - 1);
 	print_array(arr4, size4);
 	printf("\n");
 

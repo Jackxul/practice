@@ -31,7 +31,7 @@ union U2 {
     short a;
     long long z;
     double x;
-    char arr[9];  // 5 bytes
+    char arr[9];  // 9 bytes
 };
 
 int main() {
