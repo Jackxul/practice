@@ -47,6 +47,18 @@ typedef struct U3{
 	double v5;
 	float v6;
 }U3;
+union unionA {
+	int a[5];
+	char b;
+	double c;
+};
+ 
+struct B {
+	int n;
+	union unionA a;
+	char c[10];
+	int d[2];
+};
 
 int main() {
     printf("foo1: %zu\n", sizeof(struct foo1));
@@ -86,6 +98,19 @@ int main() {
     printf("offset of U3.v4: %zu\n", offsetof(U3, v4));
     printf("offset of U3.v5: %zu\n", offsetof(U3, v5));
     printf("offset of U3.v6: %zu\n", offsetof(U3, v6));
+
+
+    	printf("size of unionA: %zu\n", sizeof(union unionA));
+	printf("offset of unionA.a: %zu\n", offsetof(union unionA, a));
+	printf("offset of unionA.b: %zu\n", offsetof(union unionA, b));
+	printf("offset of unionA.c: %zu\n", offsetof(union unionA, c));
+
+
+	printf("size of struct B: %zu\n", sizeof(struct B));
+	printf("offset of B.n: %zu\n", offsetof(struct B, n));
+	printf("offset of B.a: %zu\n", offsetof(struct B, a));
+	printf("offset of B.c: %zu\n", offsetof(struct B, c));
+	printf("offset of B.d: %zu\n", offsetof(struct B, d));
 
 
     return 0;

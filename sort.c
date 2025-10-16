@@ -20,27 +20,28 @@ void swap(int *a, int *b){
 	*b = temp;
 }
 int partition(int *arr, int head, int tail){
-	int i = head - 1;
-	int j = tail + 1;
-	int pivot = head;
+	int i = head - 1, j = tail + 1;
+	int pivot = *(arr + head);
 	while(1){
 		do{
 			i++;
-		}while(*(arr + i) < *(arr + pivot));
+		}while(*(arr + i) < pivot);
 		do{
 			j--;
-		}while(*(arr + j) > *(arr + pivot));
-		if(i >= j){
-			return j;
+		}while(*(arr + j) > pivot);
+		if(i < j){
+			swap(arr + i, arr + j);
+		}else{
+			break;
 		}
-		swap(arr + i, arr + j);
 	}
+	return j;
 }
 void quick_sort(int *arr, int head, int tail){
 	if(head < tail){
-		int p = partition(arr, head, tail);
-		quick_sort(arr, head, p);
-		quick_sort(arr, p + 1, tail);
+		int pivot = partition(arr, head, tail);
+		quick_sort(arr, head, pivot);
+		quick_sort(arr, pivot + 1, tail);
 	}
 }
 int *insertion_sort(int *arr, int len){
