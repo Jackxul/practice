@@ -14,36 +14,36 @@
 
 #define NUM 500
 
-void swap(int *a, int *b){
+int swap(int *a, int *b){
 	int temp = *a;
 	*a = *b;
 	*b = temp;
 }
 int partition(int *arr, int head, int tail){
 	int i = head - 1, j = tail + 1;
-	int pivot = *(arr + head);
+	int pivot = head;
 	while(1){
 		do{
-			i++;
-		}while(*(arr + i) < pivot);
+			i++;	
+		}while(*(arr + i) < *(arr + pivot));
 		do{
 			j--;
-		}while(*(arr + j) > pivot);
+		}while(*(arr + j) > *(arr + pivot));
 		if(i < j){
 			swap(arr + i, arr + j);
 		}else{
-			break;
+			return j;
 		}
 	}
-	return j;
 }
 void quick_sort(int *arr, int head, int tail){
 	if(head < tail){
 		int pivot = partition(arr, head, tail);
-		quick_sort(arr, head, pivot);
 		quick_sort(arr, pivot + 1, tail);
+		quick_sort(arr, head, pivot);
 	}
 }
+
 int *insertion_sort(int *arr, int len){
 	for(int out = 0; out < len; out++){
 		int *ptr = arr + out;

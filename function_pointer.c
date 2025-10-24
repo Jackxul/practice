@@ -28,6 +28,9 @@ int mul(int a, int b){
 int main(int argc, char *argv[]) {
 	int (*array[4])(int, int);
 
+	int (*ptr)(int, int);
+
+	ptr = &********&add;
 
 	*array = add;
 	*(array + 1) = sub;
@@ -38,5 +41,8 @@ int main(int argc, char *argv[]) {
 	for(int i = 0; i < 4; i++){
 		printf("%d\n",array[i](10, 5));
 	}
+
+	printf("%d", ptr(12, 34));
+
 	return 0;
 }
